@@ -508,6 +508,56 @@
       border-color: var(--navy);
     }
 
+    /* Pricing tool */
+
+    .pricing-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: flex-start;
+      margin-top: 16px;
+    }
+
+    .pricing-inputs {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pricing-field-label {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .pricing-inline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .pricing-value-text {
+      font-size: 13px;
+      color: #6B7280;
+    }
+
+    .pricing-number-input {
+      width: 120px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 14px;
+    }
+
+    .pricing-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #4B5563;
+      margin-top: 6px;
+    }
+
     /* CTA band */
 
     .cta-band {
@@ -579,7 +629,8 @@
         margin-bottom: 8px;
       }
 
-      .gift-layout {
+      .gift-layout,
+      .pricing-layout {
         grid-template-columns: minmax(0, 1fr);
       }
     }
@@ -627,6 +678,7 @@
       <nav class="nav-links">
         <a href="#how">How it works</a>
         <a href="#math">The math</a>
+        <a href="#pricing">Plan tool</a>
         <a href="#why">Why Futuro</a>
       </nav>
       <a href="#cta" class="btn btn-outline">Get early access</a>
@@ -770,6 +822,108 @@
         </p>
       </section>
 
+      <!-- Pricing tool -->
+      <section id="pricing">
+        <div class="section-label">Plan tool</div>
+        <h2 class="section-title">Show any parent what their plan could look like.</h2>
+        <p class="section-subtitle">
+          Not every family starts at birth. Use this to show how a simple monthly amount grows from wherever their child is today through age 30.
+        </p>
+
+        <div class="pricing-layout">
+          <!-- Inputs -->
+          <div class="info-card pricing-inputs">
+            <div>
+              <div class="pricing-field-label">Child current age</div>
+              <input
+                id="pricingCurrentAge"
+                type="range"
+                min="0"
+                max="29"
+                value="1"
+              />
+              <div id="pricingCurrentAgeLabel" class="pricing-value-text">
+                Starting at age 1
+              </div>
+            </div>
+
+            <div>
+              <div class="pricing-field-label">Target age</div>
+              <input
+                id="pricingTargetAge"
+                type="range"
+                min="2"
+                max="30"
+                value="18"
+              />
+              <div id="pricingTargetAgeLabel" class="pricing-value-text">
+                Looking at age 18
+              </div>
+              <div class="pricing-value-text" id="pricingYearsLabel">
+                Years invested from now: 17
+              </div>
+            </div>
+
+            <div>
+              <div class="pricing-field-label">Monthly contribution</div>
+              <div class="pricing-inline">
+                <input
+                  id="pricingMonthly"
+                  type="number"
+                  min="10"
+                  max="1000"
+                  step="10"
+                  value="200"
+                  class="pricing-number-input"
+                />
+                <span class="pricing-value-text">per month</span>
+              </div>
+              <div class="pricing-value-text" id="pricingMonthlyLabel">
+                That is $2,400 per year
+              </div>
+            </div>
+
+            <label class="pricing-checkbox">
+              <input id="pricingIncludeSeed" type="checkbox" checked />
+              <span>Include a one time $1,000 government seed if available</span>
+            </label>
+
+            <div class="pricing-value-text" style="margin-top:6px;">
+              This is an illustration using a 7 percent average annual return and monthly investing. It is not a guarantee or personal investment advice.
+            </div>
+          </div>
+
+          <!-- Output -->
+          <div class="math-wrap">
+            <div class="math-grid">
+              <div class="math-card">
+                <div class="math-label">Estimated account value at target age</div>
+                <div id="pricingTargetBalance" class="math-value">$0</div>
+              </div>
+              <div class="math-card">
+                <div class="math-label">Total contributed by family</div>
+                <div id="pricingTotalContrib" class="math-value">$0</div>
+              </div>
+            </div>
+
+            <div class="math-grid" style="margin-top:10px;">
+              <div class="math-card">
+                <div class="math-label">Growth above contributions</div>
+                <div id="pricingGrowth" class="math-value">$0</div>
+              </div>
+              <div class="math-card">
+                <div class="math-label">Effective multiple on dollars invested</div>
+                <div id="pricingMultiple" class="math-value">0x</div>
+              </div>
+            </div>
+
+            <p class="math-note" id="pricingNarrative">
+              With this plan your monthly contribution compounds quietly in the background while your child moves from this age to the target age you picked.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <!-- Why Futuro -->
       <section id="why">
         <div class="section-label">Why Futuro</div>
@@ -844,7 +998,7 @@
                 <button type="button" class="gift-toggle-btn" data-amount="100">$100</button>
               </div>
               <div id="giftAmountLabel" class="slider-value">
-                $20 one time gift
+                $20 gift
               </div>
               <div class="slider-value" style="font-size:12px;color:#6B7280;">
                 Pick an amount. First see what happens if you send it once, then what happens if you sent that amount every month for the first year.
@@ -921,11 +1075,12 @@
   </div>
 
   <script>
-    // Simple compounding calculator for the main slider
+    // Utility
     function formatCurrency(n) {
       return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
     }
 
+    // Main slider compounding with seed + monthly
     function computeFutureValue(monthly, years) {
       const seed = 1000;
       const r = 0.07;
@@ -954,7 +1109,8 @@
       age30Value.textContent = formatCurrency(v30);
     }
 
-    // One time gift calculator
+    // Gift calculators
+
     function computeGiftValue(amount, years) {
       const r = 0.07;
       return amount * Math.pow(1 + r, years);
@@ -999,6 +1155,87 @@
       monthly30.textContent = formatCurrency(mv30);
     }
 
+    // Pricing tool calculators
+
+    function computePlanValueNoSeed(monthly, years) {
+      const annualRate = 0.07;
+      const monthlyRate = Math.pow(1 + annualRate, 1 / 12) - 1;
+      const totalMonths = years * 12;
+      if (totalMonths <= 0) return 0;
+      const fv = monthly * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate);
+      return fv;
+    }
+
+    function computeSeedValue(years) {
+      const annualRate = 0.07;
+      return 1000 * Math.pow(1 + annualRate, years);
+    }
+
+    function updatePricingMath() {
+      const currentAgeInput = document.getElementById("pricingCurrentAge");
+      const targetAgeInput = document.getElementById("pricingTargetAge");
+      const monthlyInput = document.getElementById("pricingMonthly");
+      const includeSeedInput = document.getElementById("pricingIncludeSeed");
+
+      if (!currentAgeInput || !targetAgeInput || !monthlyInput) return;
+
+      let currentAge = parseInt(currentAgeInput.value, 10);
+      let targetAge = parseInt(targetAgeInput.value, 10);
+
+      // Ensure target is at least one year older
+      if (targetAge <= currentAge) {
+        targetAge = currentAge + 1;
+        if (targetAge > 30) {
+          targetAge = 30;
+          currentAge = 29;
+          currentAgeInput.value = 29;
+        }
+        targetAgeInput.value = targetAge;
+      }
+
+      const yearsInvested = targetAge - currentAge;
+
+      const monthly = Math.max(0, parseFloat(monthlyInput.value) || 0);
+
+      const currentAgeLabel = document.getElementById("pricingCurrentAgeLabel");
+      const targetAgeLabel = document.getElementById("pricingTargetAgeLabel");
+      const yearsLabel = document.getElementById("pricingYearsLabel");
+      const monthlyLabel = document.getElementById("pricingMonthlyLabel");
+      const targetBalanceEl = document.getElementById("pricingTargetBalance");
+      const totalContribEl = document.getElementById("pricingTotalContrib");
+      const growthEl = document.getElementById("pricingGrowth");
+      const multipleEl = document.getElementById("pricingMultiple");
+      const narrativeEl = document.getElementById("pricingNarrative");
+
+      currentAgeLabel.textContent = "Starting at age " + currentAge;
+      targetAgeLabel.textContent = "Looking at age " + targetAge;
+      yearsLabel.textContent = "Years invested from now: " + yearsInvested;
+      monthlyLabel.textContent = "That is $" + (monthly * 12).toLocaleString("en-US", { maximumFractionDigits: 0 }) + " per year";
+
+      const totalContrib = monthly * 12 * yearsInvested;
+      let balance = computePlanValueNoSeed(monthly, yearsInvested);
+      if (includeSeedInput.checked) {
+        balance += computeSeedValue(yearsInvested);
+      }
+
+      const growth = Math.max(0, balance - totalContrib);
+      const multiple = totalContrib > 0 ? balance / totalContrib : 0;
+
+      targetBalanceEl.textContent = formatCurrency(balance);
+      totalContribEl.textContent = formatCurrency(totalContrib);
+      growthEl.textContent = formatCurrency(growth);
+      multipleEl.textContent = multiple.toFixed(1) + "x";
+
+      narrativeEl.textContent =
+        "If you start at age " +
+        currentAge +
+        " and stay with $" +
+        monthly.toLocaleString("en-US", { maximumFractionDigits: 0 }) +
+        " per month until age " +
+        targetAge +
+        ", this is the rough size of the account that could be waiting for them.";
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
       // Main slider
       const mainSlider = document.getElementById("contributionRange");
@@ -1021,10 +1258,23 @@
           });
         });
 
-        // Set initial state to the one with "selected" class
         const initial = document.querySelector(".gift-toggle-btn.selected") || giftButtons[0];
         const initialAmount = parseInt(initial.getAttribute("data-amount"), 10);
         updateGiftMath(initialAmount);
+      }
+
+      // Pricing tool listeners
+      const currentAgeInput = document.getElementById("pricingCurrentAge");
+      const targetAgeInput = document.getElementById("pricingTargetAge");
+      const monthlyInput = document.getElementById("pricingMonthly");
+      const includeSeedInput = document.getElementById("pricingIncludeSeed");
+
+      if (currentAgeInput && targetAgeInput && monthlyInput && includeSeedInput) {
+        currentAgeInput.addEventListener("input", updatePricingMath);
+        targetAgeInput.addEventListener("input", updatePricingMath);
+        monthlyInput.addEventListener("input", updatePricingMath);
+        includeSeedInput.addEventListener("change", updatePricingMath);
+        updatePricingMath();
       }
     });
   </script>
