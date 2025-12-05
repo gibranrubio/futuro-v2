@@ -468,7 +468,7 @@
       color: var(--text-muted);
     }
 
-    /* Gifting section with slider */
+    /* Gifting section */
 
     .gift-layout {
       display: grid;
@@ -482,6 +482,30 @@
       font-size: 12px;
       color: #6B7280;
       margin-top: 8px;
+    }
+
+    .gift-toggle-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .gift-toggle-btn {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: #FFF;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+    }
+
+    .gift-toggle-btn.selected {
+      background: var(--navy);
+      color: #F9F6F1;
+      border-color: var(--navy);
     }
 
     /* CTA band */
@@ -806,42 +830,54 @@
             </p>
           </article>
 
-          <!-- Right: slider calculator -->
+          <!-- Right: toggle calculator -->
           <div class="math-wrap">
             <div class="slider-row">
-              <label class="slider-label" for="giftAmountRange">
-                Choose a one time gift and see what it could grow to
+              <label class="slider-label">
+                Choose a gift and see what it could grow to
               </label>
-              <input
-                id="giftAmountRange"
-                type="range"
-                min="0"
-                max="4"
-                step="1"
-                value="2"
-              />
+              <div class="gift-toggle-group">
+                <button type="button" class="gift-toggle-btn" data-amount="5">$5</button>
+                <button type="button" class="gift-toggle-btn" data-amount="10">$10</button>
+                <button type="button" class="gift-toggle-btn selected" data-amount="20">$20</button>
+                <button type="button" class="gift-toggle-btn" data-amount="50">$50</button>
+                <button type="button" class="gift-toggle-btn" data-amount="100">$100</button>
+              </div>
               <div id="giftAmountLabel" class="slider-value">
                 $20 one time gift
               </div>
               <div class="slider-value" style="font-size:12px;color:#6B7280;">
-                Options: $5, $10, $20, $50, $100 (assumes the gift is invested from birth)
+                Pick an amount. First see what happens if you send it once, then what happens if you sent that amount every month for the first year.
               </div>
             </div>
 
+            <!-- One time gift row -->
             <div class="math-grid">
               <div class="math-card">
-                <div class="math-label">Estimated value at age 18</div>
+                <div class="math-label">One time gift at birth · value at 18</div>
                 <div id="giftAge18Value" class="math-value">$0</div>
               </div>
               <div class="math-card">
-                <div class="math-label">Estimated value at age 30</div>
+                <div class="math-label">One time gift at birth · value at 30</div>
                 <div id="giftAge30Value" class="math-value">$0</div>
               </div>
             </div>
 
+            <!-- Monthly for one year row -->
+            <div class="math-grid" style="margin-top:10px;">
+              <div class="math-card">
+                <div class="math-label">Same amount every month for one year · value at 18</div>
+                <div id="giftMonthlyAge18Value" class="math-value">$0</div>
+              </div>
+              <div class="math-card">
+                <div class="math-label">Same amount every month for one year · value at 30</div>
+                <div id="giftMonthlyAge30Value" class="math-value">$0</div>
+              </div>
+            </div>
+
             <p class="gift-math-note">
-              This example assumes a single gift invested from birth with dividends reinvested and a 7 percent average annual return
-              based on long term S&amp;P 500 history. Markets go up and down. This is not a guarantee, just an illustration of compounding.
+              These examples assume the gifts start at birth, dividends are reinvested, and the money earns a 7 percent average annual return
+              based on long term S&amp;P 500 history. Markets go up and down. This is not a guarantee, just an illustration of compounding over time.
             </p>
           </div>
         </div>
@@ -918,46 +954,77 @@
       age30Value.textContent = formatCurrency(v30);
     }
 
-    // New calculator for one time gifts
-    const giftAmounts = [5, 10, 20, 50, 100];
-
+    // One time gift calculator
     function computeGiftValue(amount, years) {
       const r = 0.07;
       return amount * Math.pow(1 + r, years);
     }
 
-    function updateGiftMath() {
-      const slider = document.getElementById("giftAmountRange");
-      if (!slider) return;
+    // Monthly for one year, then leave invested
+    function computeMonthlyForYearValue(amount, yearsTotal) {
+      const annualRate = 0.07;
+      const monthlyRate = Math.pow(1 + annualRate, 1 / 12) - 1;
+      const totalMonths = yearsTotal * 12;
+      let value = 0;
 
+      // Gifts happen once per month for the first 12 months
+      for (let m = 0; m < 12; m++) {
+        const monthsToGrow = totalMonths - (m + 1);
+        value += amount * Math.pow(1 + monthlyRate, monthsToGrow);
+      }
+      return value;
+    }
+
+    function updateGiftMath(amount) {
       const label = document.getElementById("giftAmountLabel");
       const age18 = document.getElementById("giftAge18Value");
       const age30 = document.getElementById("giftAge30Value");
+      const monthly18 = document.getElementById("giftMonthlyAge18Value");
+      const monthly30 = document.getElementById("giftMonthlyAge30Value");
 
-      const index = parseInt(slider.value, 10);
-      const amount = giftAmounts[index];
+      label.textContent = "$" + amount + " gift";
 
-      label.textContent = "$" + amount + " one time gift";
-
+      // One time at birth
       const v18 = computeGiftValue(amount, 18);
       const v30 = computeGiftValue(amount, 30);
 
       age18.textContent = formatCurrency(v18);
       age30.textContent = formatCurrency(v30);
+
+      // Same amount every month for the first year
+      const mv18 = computeMonthlyForYearValue(amount, 18);
+      const mv30 = computeMonthlyForYearValue(amount, 30);
+
+      monthly18.textContent = formatCurrency(mv18);
+      monthly30.textContent = formatCurrency(mv30);
     }
 
-    // Init both sliders
     document.addEventListener("DOMContentLoaded", function () {
+      // Main slider
       const mainSlider = document.getElementById("contributionRange");
       if (mainSlider) {
         mainSlider.addEventListener("input", updateMath);
         updateMath();
       }
 
-      const giftSlider = document.getElementById("giftAmountRange");
-      if (giftSlider) {
-        giftSlider.addEventListener("input", updateGiftMath);
-        updateGiftMath();
+      // Gift toggle buttons
+      const giftButtons = document.querySelectorAll(".gift-toggle-btn");
+      if (giftButtons.length > 0) {
+        giftButtons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            giftButtons.forEach(function (b) {
+              b.classList.remove("selected");
+            });
+            btn.classList.add("selected");
+            const amount = parseInt(btn.getAttribute("data-amount"), 10);
+            updateGiftMath(amount);
+          });
+        });
+
+        // Set initial state to the one with "selected" class
+        const initial = document.querySelector(".gift-toggle-btn.selected") || giftButtons[0];
+        const initialAmount = parseInt(initial.getAttribute("data-amount"), 10);
+        updateGiftMath(initialAmount);
       }
     });
   </script>
