@@ -66,6 +66,12 @@
       font-size: 16px;
     }
 
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
     .nav-links {
       display: flex;
       gap: 16px;
@@ -106,6 +112,32 @@
 
     .btn-outline:hover {
       background: rgba(255, 255, 255, 0.7);
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 3px;
+      font-size: 12px;
+      background: #FFFFFF;
+      gap: 2px;
+    }
+
+    .lang-toggle button {
+      border: none;
+      background: transparent;
+      padding: 4px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      color: #4B5563;
+    }
+
+    .lang-toggle button.active {
+      background: var(--navy);
+      color: #F9F6F1;
     }
 
     /* Hero */
@@ -671,36 +703,44 @@
 <body>
   <div class="page">
     <header class="site-header">
-      <div class="logo">
-        <div class="logo-mark">F</div>
-        <span>Futuro</span>
+      <div class="nav-left">
+        <div class="logo">
+          <div class="logo-mark">F</div>
+          <span>Futuro</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#how" data-i18n="navHow">How it works</a>
+          <a href="#math" data-i18n="navMath">The math</a>
+          <a href="#pricing" data-i18n="navPricing">Plan tool</a>
+          <a href="#why" data-i18n="navWhy">Why Futuro</a>
+        </nav>
       </div>
-      <nav class="nav-links">
-        <a href="#how">How it works</a>
-        <a href="#math">The math</a>
-        <a href="#pricing">Plan tool</a>
-        <a href="#why">Why Futuro</a>
-      </nav>
-      <a href="#cta" class="btn btn-outline">Get early access</a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="lang-toggle" aria-label="Language toggle">
+          <button id="langEnBtn" class="active" type="button">EN</button>
+          <button id="langEsBtn" type="button">ES</button>
+        </div>
+        <a href="#cta" class="btn btn-outline" data-i18n="navCta">Get early access</a>
+      </div>
     </header>
 
     <main>
       <!-- Hero -->
       <section class="hero">
         <div>
-          <div class="hero-kicker">For parents and families</div>
-          <h1 class="hero-title">Give your child a financial head start.</h1>
-          <p class="hero-subtitle">
+          <div class="hero-kicker" data-i18n="heroKicker">For parents and families</div>
+          <h1 class="hero-title" data-i18n="heroTitle">Give your child a financial head start.</h1>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">
             The government seeds the account. Futuro helps it grow.
           </p>
-          <p class="hero-tagline">
+          <p class="hero-tagline" data-i18n="heroTagline">
             A simple S&amp;P 500 investment account for kids with a shareable gift link that family and friends can use to contribute instantly.
           </p>
           <div class="hero-actions">
-            <a href="#cta" class="btn btn-primary">Get early access</a>
-            <a href="#how" class="btn btn-outline">See how it works</a>
+            <a href="#cta" class="btn btn-primary" data-i18n="heroPrimaryBtn">Get early access</a>
+            <a href="#how" class="btn btn-outline" data-i18n="heroSecondaryBtn">See how it works</a>
           </div>
-          <p class="hero-note">
+          <p class="hero-note" data-i18n="heroNote">
             Small gifts today. Big futures tomorrow. Turn birthdays and holidays into compounding moments.
           </p>
         </div>
@@ -714,16 +754,16 @@
                   <div class="child-avatar">M</div>
                   <div class="child-meta">
                     <span class="child-name">Mia</span>
-                    <span class="child-tag">Age 1 · Trump account linked</span>
+                    <span class="child-tag" data-i18n="phoneChildTag">Age 1 · Trump account linked</span>
                   </div>
                 </div>
-                <div class="child-pill">S&amp;P 500 only</div>
+                <div class="child-pill" data-i18n="phoneChildPill">S&amp;P 500 only</div>
               </div>
 
               <div class="balance-block">
-                <div class="balance-label">Current balance</div>
+                <div class="balance-label" data-i18n="phoneBalanceLabel">Current balance</div>
                 <div class="balance-value">$3,420.18</div>
-                <div class="balance-sub">+ $820 this year from gifts</div>
+                <div class="balance-sub" data-i18n="phoneBalanceSub">+ $820 this year from gifts</div>
               </div>
 
               <div class="mini-chart">
@@ -732,10 +772,10 @@
 
               <div class="phone-footer">
                 <div class="stat-pill">
-                  <div class="stat-label">Projected at 18</div>
+                  <div class="stat-label" data-i18n="phoneStatLabel">Projected at 18</div>
                   <div class="stat-value">$24,300</div>
                 </div>
-                <button class="gift-btn" type="button">Send a gift</button>
+                <button class="gift-btn" type="button" data-i18n="phoneGiftBtn">Send a gift</button>
               </div>
             </div>
           </div>
@@ -744,31 +784,31 @@
 
       <!-- How it works -->
       <section id="how">
-        <div class="section-label">How it works</div>
-        <h2 class="section-title">Government seed plus family gifts plus automatic S&amp;P 500 investing.</h2>
-        <p class="section-subtitle">
+        <div class="section-label" data-i18n="howLabel">How it works</div>
+        <h2 class="section-title" data-i18n="howTitle">Government seed plus family gifts plus automatic S&amp;P 500 investing.</h2>
+        <p class="section-subtitle" data-i18n="howSubtitle">
           Futuro connects to the new national child investing program and wraps it in a simple flow for parents, grandparents, and friends.
         </p>
 
         <div class="three-cols">
           <article class="info-card">
             <div class="info-icon">👶</div>
-            <h3 class="info-title">Create your child account</h3>
-            <p class="info-body">
+            <h3 class="info-title" data-i18n="howCard1Title">Create your child account</h3>
+            <p class="info-body" data-i18n="howCard1Body">
               Add a photo, name, and birthday. We detect the government seed and link the underlying account behind the scenes.
             </p>
           </article>
           <article class="info-card">
             <div class="info-icon">🔗</div>
-            <h3 class="info-title">Share your gift link</h3>
-            <p class="info-body">
+            <h3 class="info-title" data-i18n="howCard2Title">Share your gift link</h3>
+            <p class="info-body" data-i18n="howCard2Body">
               Get one private link for your child. Family and friends can contribute in one tap using card or bank.
             </p>
           </article>
           <article class="info-card">
             <div class="info-icon">📈</div>
-            <h3 class="info-title">Watch it grow automatically</h3>
-            <p class="info-body">
+            <h3 class="info-title" data-i18n="howCard3Title">Watch it grow automatically</h3>
+            <p class="info-body" data-i18n="howCard3Body">
               Every contribution goes into a low cost S&amp;P 500 index fund and stays invested according to program rules until adulthood.
             </p>
           </article>
@@ -777,15 +817,15 @@
 
       <!-- The math -->
       <section id="math">
-        <div class="section-label">The math</div>
-        <h2 class="section-title">See what your child account could be worth.</h2>
-        <p class="section-subtitle">
+        <div class="section-label" data-i18n="mathLabel">The math</div>
+        <h2 class="section-title" data-i18n="mathTitle">See what your child account could be worth.</h2>
+        <p class="section-subtitle" data-i18n="mathSubtitle">
           Start with the government seed, add a monthly amount you feel comfortable with, and let compounding do the heavy lifting.
         </p>
 
         <div class="math-wrap">
           <div class="slider-row">
-            <label class="slider-label" for="contributionRange">
+            <label class="slider-label" for="contributionRange" data-i18n="mathSliderLabel">
               Monthly contribution
             </label>
             <input
@@ -803,30 +843,30 @@
 
           <div class="math-grid">
             <div class="math-card">
-              <div class="math-label">Estimated balance at age 18</div>
+              <div class="math-label" data-i18n="math18Label">Estimated balance at age 18</div>
               <div id="age18Value" class="math-value">$86,000</div>
             </div>
             <div class="math-card">
-              <div class="math-label">Estimated balance at age 30</div>
+              <div class="math-label" data-i18n="math30Label">Estimated balance at age 30</div>
               <div id="age30Value" class="math-value">$173,000</div>
             </div>
           </div>
 
-          <div class="math-note">
+          <div class="math-note" data-i18n="mathNote">
             Compounding example assumes a $1,000 government seed, consistent monthly contributions, dividends reinvested, and a 7 percent average annual return based on historical S&amp;P 500 performance. Markets go up and down. The habit is the part you control.
           </div>
         </div>
 
-        <p style="margin-top:14px;font-size:14px;color:var(--text-muted);">
+        <p style="margin-top:14px;font-size:14px;color:var(--text-muted);" data-i18n="mathTagline">
           Compounding is the most powerful gift you can give.
         </p>
       </section>
 
       <!-- Pricing tool -->
       <section id="pricing">
-        <div class="section-label">Plan tool</div>
-        <h2 class="section-title">Show any parent what their plan could look like.</h2>
-        <p class="section-subtitle">
+        <div class="section-label" data-i18n="pricingLabel">Plan tool</div>
+        <h2 class="section-title" data-i18n="pricingTitle">Show any parent what their plan could look like.</h2>
+        <p class="section-subtitle" data-i18n="pricingSubtitle">
           Not every family starts at birth. Use this to show how a simple monthly amount grows from wherever their child is today through age 30.
         </p>
 
@@ -834,7 +874,9 @@
           <!-- Inputs -->
           <div class="info-card pricing-inputs">
             <div>
-              <div class="pricing-field-label">Child current age</div>
+              <div class="pricing-field-label" data-i18n="pricingCurrentAgeLabel">
+                Child current age
+              </div>
               <input
                 id="pricingCurrentAge"
                 type="range"
@@ -848,7 +890,9 @@
             </div>
 
             <div>
-              <div class="pricing-field-label">Target age</div>
+              <div class="pricing-field-label" data-i18n="pricingTargetAgeTitle">
+                Target age
+              </div>
               <input
                 id="pricingTargetAge"
                 type="range"
@@ -865,7 +909,9 @@
             </div>
 
             <div>
-              <div class="pricing-field-label">Monthly contribution</div>
+              <div class="pricing-field-label" data-i18n="pricingMonthlyTitle">
+                Monthly contribution
+              </div>
               <div class="pricing-inline">
                 <input
                   id="pricingMonthly"
@@ -876,7 +922,7 @@
                   value="200"
                   class="pricing-number-input"
                 />
-                <span class="pricing-value-text">per month</span>
+                <span class="pricing-value-text" data-i18n="pricingPerMonthText">per month</span>
               </div>
               <div class="pricing-value-text" id="pricingMonthlyLabel">
                 That is $2,400 per year
@@ -885,10 +931,10 @@
 
             <label class="pricing-checkbox">
               <input id="pricingIncludeSeed" type="checkbox" checked />
-              <span>Include a one time $1,000 government seed if available</span>
+              <span data-i18n="pricingSeedText">Include a one time $1,000 government seed if available</span>
             </label>
 
-            <div class="pricing-value-text" style="margin-top:6px;">
+            <div class="pricing-value-text" style="margin-top:6px;" data-i18n="pricingDisclaimer">
               This is an illustration using a 7 percent average annual return and monthly investing. It is not a guarantee or personal investment advice.
             </div>
           </div>
@@ -897,22 +943,22 @@
           <div class="math-wrap">
             <div class="math-grid">
               <div class="math-card">
-                <div class="math-label">Estimated account value at target age</div>
+                <div class="math-label" data-i18n="pricingTargetBalanceLabel">Estimated account value at target age</div>
                 <div id="pricingTargetBalance" class="math-value">$0</div>
               </div>
               <div class="math-card">
-                <div class="math-label">Total contributed by family</div>
+                <div class="math-label" data-i18n="pricingTotalContribLabel">Total contributed by family</div>
                 <div id="pricingTotalContrib" class="math-value">$0</div>
               </div>
             </div>
 
             <div class="math-grid" style="margin-top:10px;">
               <div class="math-card">
-                <div class="math-label">Growth above contributions</div>
+                <div class="math-label" data-i18n="pricingGrowthLabel">Growth above contributions</div>
                 <div id="pricingGrowth" class="math-value">$0</div>
               </div>
               <div class="math-card">
-                <div class="math-label">Effective multiple on dollars invested</div>
+                <div class="math-label" data-i18n="pricingMultipleLabel">Effective multiple on dollars invested</div>
                 <div id="pricingMultiple" class="math-value">0x</div>
               </div>
             </div>
@@ -926,34 +972,34 @@
 
       <!-- Why Futuro -->
       <section id="why">
-        <div class="section-label">Why Futuro</div>
-        <h2 class="section-title">Built for families, not finance experts.</h2>
-        <p class="section-subtitle">
+        <div class="section-label" data-i18n="whyLabel">Why Futuro</div>
+        <h2 class="section-title" data-i18n="whyTitle">Built for families, not finance experts.</h2>
+        <p class="section-subtitle" data-i18n="whySubtitle">
           Simple by default, transparent by design, and aligned with the new national investing infrastructure for kids.
         </p>
 
         <div class="why-grid">
           <div class="why-card">
-            <div class="why-title">Simple by default</div>
-            <div class="why-body">
+            <div class="why-title" data-i18n="whyCard1Title">Simple by default</div>
+            <div class="why-body" data-i18n="whyCard1Body">
               One clear asset, one balance, one path. No trading screen or confusing menus, just the S&amp;P 500.
             </div>
           </div>
           <div class="why-card">
-            <div class="why-title">Family friendly</div>
-            <div class="why-body">
+            <div class="why-title" data-i18n="whyCard2Title">Family friendly</div>
+            <div class="why-body" data-i18n="whyCard2Body">
               Designed for parents, grandparents, aunts, uncles, and friends who want to give something that lasts.
             </div>
           </div>
           <div class="why-card">
-            <div class="why-title">Built on the new system</div>
-            <div class="why-body">
+            <div class="why-title" data-i18n="whyCard3Title">Built on the new system</div>
+            <div class="why-body" data-i18n="whyCard3Body">
               Futuro connects to the federal Trump Account program and other custodial rails instead of trying to replace them.
             </div>
           </div>
           <div class="why-card">
-            <div class="why-title">Gifting engine</div>
-            <div class="why-body">
+            <div class="why-title" data-i18n="whyCard4Title">Gifting engine</div>
+            <div class="why-body" data-i18n="whyCard4Body">
               Baby showers, birthdays, holidays, small wins. Every moment can flow into the same compounding account.
             </div>
           </div>
@@ -962,9 +1008,9 @@
 
       <!-- Gifting: send compounding instead of toys -->
       <section id="gifting">
-        <div class="section-label">Gifting</div>
-        <h2 class="section-title">No toys please, send compounding instead.</h2>
-        <p class="section-subtitle">
+        <div class="section-label" data-i18n="giftLabel">Gifting</div>
+        <h2 class="section-title" data-i18n="giftTitle">No toys please, send compounding instead.</h2>
+        <p class="section-subtitle" data-i18n="giftSubtitle">
           We appreciate you thinking of our little one. Instead of toys or more baby items, we are asking friends and family
           to contribute to a long term investing account that buys a simple S&amp;P 500 fund for our child.
         </p>
@@ -972,13 +1018,13 @@
         <div class="gift-layout">
           <!-- Left: story and instructions -->
           <article class="info-card">
-            <h3 class="info-title">A different kind of gift</h3>
-            <p class="info-body">
+            <h3 class="info-title" data-i18n="giftCardTitle">A different kind of gift</h3>
+            <p class="info-body" data-i18n="giftCardBody1">
               Most toys are loved for a season then end up in a closet. We are trying something quieter and longer term.
               Every gift goes into one S&amp;P 500 fund and stays invested for years. Nothing fancy, no trading,
               just ownership that compounds in the background while our child grows up.
             </p>
-            <p class="info-body" style="margin-top:10px;">
+            <p class="info-body" style="margin-top:10px;" data-i18n="giftCardBody2">
               A small gift today can be worth much more by the time they are 18 or 30. If you would like to be part of that,
               you can use the contribution link we share in our invite.
             </p>
@@ -987,7 +1033,7 @@
           <!-- Right: toggle calculator -->
           <div class="math-wrap">
             <div class="slider-row">
-              <label class="slider-label">
+              <label class="slider-label" data-i18n="giftSliderLabel">
                 Choose a gift and see what it could grow to
               </label>
               <div class="gift-toggle-group">
@@ -1000,7 +1046,7 @@
               <div id="giftAmountLabel" class="slider-value">
                 $20 gift
               </div>
-              <div class="slider-value" style="font-size:12px;color:#6B7280;">
+              <div class="slider-value" style="font-size:12px;color:#6B7280;" data-i18n="giftHint">
                 Pick an amount. First see what happens if you send it once, then what happens if you sent that amount every month for the first year.
               </div>
             </div>
@@ -1008,11 +1054,11 @@
             <!-- One time gift row -->
             <div class="math-grid">
               <div class="math-card">
-                <div class="math-label">One time gift at birth · value at 18</div>
+                <div class="math-label" data-i18n="gift18Label">One time gift at birth · value at 18</div>
                 <div id="giftAge18Value" class="math-value">$0</div>
               </div>
               <div class="math-card">
-                <div class="math-label">One time gift at birth · value at 30</div>
+                <div class="math-label" data-i18n="gift30Label">One time gift at birth · value at 30</div>
                 <div id="giftAge30Value" class="math-value">$0</div>
               </div>
             </div>
@@ -1020,16 +1066,16 @@
             <!-- Monthly for one year row -->
             <div class="math-grid" style="margin-top:10px;">
               <div class="math-card">
-                <div class="math-label">Same amount every month for one year · value at 18</div>
+                <div class="math-label" data-i18n="giftMonthly18Label">Same amount every month for one year · value at 18</div>
                 <div id="giftMonthlyAge18Value" class="math-value">$0</div>
               </div>
               <div class="math-card">
-                <div class="math-label">Same amount every month for one year · value at 30</div>
+                <div class="math-label" data-i18n="giftMonthly30Label">Same amount every month for one year · value at 30</div>
                 <div id="giftMonthlyAge30Value" class="math-value">$0</div>
               </div>
             </div>
 
-            <p class="gift-math-note">
+            <p class="gift-math-note" data-i18n="giftNote">
               These examples assume the gifts start at birth, dividends are reinvested, and the money earns a 7 percent average annual return
               based on long term S&amp;P 500 history. Markets go up and down. This is not a guarantee, just an illustration of compounding over time.
             </p>
@@ -1040,23 +1086,24 @@
       <!-- CTA -->
       <section id="cta">
         <div class="cta-band">
-          <div class="cta-band-title">
+          <div class="cta-band-title" data-i18n="ctaTitle">
             Be part of the first generation using America’s new investing program for kids.
           </div>
-          <div class="cta-band-sub">
+          <div class="cta-band-sub" data-i18n="ctaSubtitle">
             We are inviting a small group of early families, community leaders, and donors to help shape Futuro. Leave your email and we will reach out as soon as the product is ready.
           </div>
           <form
             class="cta-form"
-            onsubmit="event.preventDefault(); alert('Thank you for your interest in Futuro.');"
+            onsubmit="event.preventDefault(); alert(currentLang === 'en' ? 'Thank you for your interest in Futuro.' : 'Gracias por tu interés en Futuro.');"
           >
             <input
+              id="ctaEmail"
               type="email"
               required
               placeholder="Enter your email"
               class="cta-input"
             />
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" data-i18n="ctaBtn">
               Get early access
             </button>
           </form>
@@ -1065,16 +1112,225 @@
     </main>
 
     <footer>
-      <div>© Futuro. Concept preview for early product exploration.</div>
+      <div data-i18n="footerLeft">© Futuro. Concept preview for early product exploration.</div>
       <div>
-        <a href="#!">Terms</a> ·
-        <a href="#!">Privacy</a> ·
-        <a href="#!">Disclosures</a>
+        <a href="#!" data-i18n="footerTerms">Terms</a> ·
+        <a href="#!" data-i18n="footerPrivacy">Privacy</a> ·
+        <a href="#!" data-i18n="footerDisclosures">Disclosures</a>
       </div>
     </footer>
   </div>
 
   <script>
+    let currentLang = "en";
+
+    const translations = {
+      en: {
+        navHow: "How it works",
+        navMath: "The math",
+        navPricing: "Plan tool",
+        navWhy: "Why Futuro",
+        navCta: "Get early access",
+
+        heroKicker: "For parents and families",
+        heroTitle: "Give your child a financial head start.",
+        heroSubtitle: "The government seeds the account. Futuro helps it grow.",
+        heroTagline: "A simple S&P 500 investment account for kids with a shareable gift link that family and friends can use to contribute instantly.",
+        heroPrimaryBtn: "Get early access",
+        heroSecondaryBtn: "See how it works",
+        heroNote: "Small gifts today. Big futures tomorrow. Turn birthdays and holidays into compounding moments.",
+
+        phoneChildTag: "Age 1 · Trump account linked",
+        phoneChildPill: "S&P 500 only",
+        phoneBalanceLabel: "Current balance",
+        phoneBalanceSub: "+ $820 this year from gifts",
+        phoneStatLabel: "Projected at 18",
+        phoneGiftBtn: "Send a gift",
+
+        howLabel: "How it works",
+        howTitle: "Government seed plus family gifts plus automatic S&P 500 investing.",
+        howSubtitle: "Futuro connects to the new national child investing program and wraps it in a simple flow for parents, grandparents, and friends.",
+        howCard1Title: "Create your child account",
+        howCard1Body: "Add a photo, name, and birthday. We detect the government seed and link the underlying account behind the scenes.",
+        howCard2Title: "Share your gift link",
+        howCard2Body: "Get one private link for your child. Family and friends can contribute in one tap using card or bank.",
+        howCard3Title: "Watch it grow automatically",
+        howCard3Body: "Every contribution goes into a low cost S&P 500 index fund and stays invested according to program rules until adulthood.",
+
+        mathLabel: "The math",
+        mathTitle: "See what your child account could be worth.",
+        mathSubtitle: "Start with the government seed, add a monthly amount you feel comfortable with, and let compounding do the heavy lifting.",
+        mathSliderLabel: "Monthly contribution",
+        math18Label: "Estimated balance at age 18",
+        math30Label: "Estimated balance at age 30",
+        mathNote: "Compounding example assumes a $1,000 government seed, consistent monthly contributions, dividends reinvested, and a 7 percent average annual return based on historical S&P 500 performance. Markets go up and down. The habit is the part you control.",
+        mathTagline: "Compounding is the most powerful gift you can give.",
+
+        pricingLabel: "Plan tool",
+        pricingTitle: "Show any parent what their plan could look like.",
+        pricingSubtitle: "Not every family starts at birth. Use this to show how a simple monthly amount grows from wherever their child is today through age 30.",
+        pricingCurrentAgeLabel: "Child current age",
+        pricingTargetAgeTitle: "Target age",
+        pricingMonthlyTitle: "Monthly contribution",
+        pricingPerMonthText: "per month",
+        pricingSeedText: "Include a one time $1,000 government seed if available",
+        pricingDisclaimer: "This is an illustration using a 7 percent average annual return and monthly investing. It is not a guarantee or personal investment advice.",
+        pricingTargetBalanceLabel: "Estimated account value at target age",
+        pricingTotalContribLabel: "Total contributed by family",
+        pricingGrowthLabel: "Growth above contributions",
+        pricingMultipleLabel: "Effective multiple on dollars invested",
+
+        whyLabel: "Why Futuro",
+        whyTitle: "Built for families, not finance experts.",
+        whySubtitle: "Simple by default, transparent by design, and aligned with the new national investing infrastructure for kids.",
+        whyCard1Title: "Simple by default",
+        whyCard1Body: "One clear asset, one balance, one path. No trading screen or confusing menus, just the S&P 500.",
+        whyCard2Title: "Family friendly",
+        whyCard2Body: "Designed for parents, grandparents, aunts, uncles, and friends who want to give something that lasts.",
+        whyCard3Title: "Built on the new system",
+        whyCard3Body: "Futuro connects to the federal Trump Account program and other custodial rails instead of trying to replace them.",
+        whyCard4Title: "Gifting engine",
+        whyCard4Body: "Baby showers, birthdays, holidays, small wins. Every moment can flow into the same compounding account.",
+
+        giftLabel: "Gifting",
+        giftTitle: "No toys please, send compounding instead.",
+        giftSubtitle: "We appreciate you thinking of our little one. Instead of toys or more baby items, we are asking friends and family to contribute to a long term investing account that buys a simple S&P 500 fund for our child.",
+        giftCardTitle: "A different kind of gift",
+        giftCardBody1: "Most toys are loved for a season then end up in a closet. We are trying something quieter and longer term. Every gift goes into one S&P 500 fund and stays invested for years. Nothing fancy, no trading, just ownership that compounds in the background while our child grows up.",
+        giftCardBody2: "A small gift today can be worth much more by the time they are 18 or 30. If you would like to be part of that, you can use the contribution link we share in our invite.",
+        giftSliderLabel: "Choose a gift and see what it could grow to",
+        giftHint: "Pick an amount. First see what happens if you send it once, then what happens if you sent that amount every month for the first year.",
+        gift18Label: "One time gift at birth · value at 18",
+        gift30Label: "One time gift at birth · value at 30",
+        giftMonthly18Label: "Same amount every month for one year · value at 18",
+        giftMonthly30Label: "Same amount every month for one year · value at 30",
+        giftNote: "These examples assume the gifts start at birth, dividends are reinvested, and the money earns a 7 percent average annual return based on long term S&P 500 history. Markets go up and down. This is not a guarantee, just an illustration of compounding over time.",
+
+        ctaTitle: "Be part of the first generation using America’s new investing program for kids.",
+        ctaSubtitle: "We are inviting a small group of early families, community leaders, and donors to help shape Futuro. Leave your email and we will reach out as soon as the product is ready.",
+        ctaBtn: "Get early access",
+
+        footerLeft: "© Futuro. Concept preview for early product exploration.",
+        footerTerms: "Terms",
+        footerPrivacy: "Privacy",
+        footerDisclosures: "Disclosures"
+      },
+      es: {
+        navHow: "Cómo funciona",
+        navMath: "Los números",
+        navPricing: "Planificador",
+        navWhy: "Por qué Futuro",
+        navCta: "Únete a la lista",
+
+        heroKicker: "Para mamás, papás y familia",
+        heroTitle: "Dale a tu hijo una ventaja financiera.",
+        heroSubtitle: "El gobierno siembra la cuenta. Futuro la ayuda a crecer.",
+        heroTagline: "Una cuenta simple en el S&P 500 para niñas y niños, con un enlace para que familia y amigos puedan aportar en segundos.",
+        heroPrimaryBtn: "Únete a la lista",
+        heroSecondaryBtn: "Ver cómo funciona",
+        heroNote: "Regalos pequeños hoy. Futuros grandes mañana. Convierte cumpleaños y fiestas en momentos que se multiplican.",
+
+        phoneChildTag: "1 año · Cuenta Trump vinculada",
+        phoneChildPill: "Solo S&P 500",
+        phoneBalanceLabel: "Saldo actual",
+        phoneBalanceSub: "+ $820 este año en regalos",
+        phoneStatLabel: "Proyección a los 18",
+        phoneGiftBtn: "Enviar regalo",
+
+        howLabel: "Cómo funciona",
+        howTitle: "Semilla del gobierno más regalos de la familia más inversión automática en el S&P 500.",
+        howSubtitle: "Futuro se conecta al nuevo programa nacional de inversión para niñas y niños y lo vuelve un flujo sencillo para mamás, papás, abuelos y amigos.",
+        howCard1Title: "Crea la cuenta de tu hijo",
+        howCard1Body: "Sube una foto, nombre y fecha de nacimiento. Detectamos la semilla del gobierno y conectamos la cuenta detrás del telón.",
+        howCard2Title: "Comparte tu enlace de regalo",
+        howCard2Body: "Un solo enlace privado para tu hijo. Familia y amigos pueden aportar con tarjeta o banco en un solo paso.",
+        howCard3Title: "Déjala crecer en automático",
+        howCard3Body: "Cada aporte se invierte en un fondo de bajo costo del S&P 500 y se queda ahí según las reglas del programa hasta la adultez.",
+
+        mathLabel: "Los números",
+        mathTitle: "Mira cuánto podría valer la cuenta de tu hijo.",
+        mathSubtitle: "Empieza con la semilla del gobierno, suma una cantidad mensual cómoda para ti y deja que el interés compuesto haga el trabajo pesado.",
+        mathSliderLabel: "Aporte mensual",
+        math18Label: "Saldo estimado a los 18 años",
+        math30Label: "Saldo estimado a los 30 años",
+        mathNote: "El ejemplo supone una semilla de $1,000 del gobierno, aportes mensuales constantes, reinversión de dividendos y un rendimiento promedio anual de 7 por ciento basado en la historia del S&P 500. El mercado sube y baja. Lo que controlas es el hábito.",
+        mathTagline: "El interés compuesto es el regalo más poderoso que puedes dar.",
+
+        pricingLabel: "Planificador",
+        pricingTitle: "Muestra a cualquier mamá o papá cómo se ve su plan.",
+        pricingSubtitle: "No todas las familias empiezan desde el nacimiento. Usa esto para mostrar cómo crece una cantidad mensual simple desde la edad actual de su hijo hasta los 30.",
+        pricingCurrentAgeLabel: "Edad actual del hijo",
+        pricingTargetAgeTitle: "Edad objetivo",
+        pricingMonthlyTitle: "Aporte mensual",
+        pricingPerMonthText: "al mes",
+        pricingSeedText: "Incluir una semilla única de $1,000 del gobierno si está disponible",
+        pricingDisclaimer: "Es solo una ilustración con un rendimiento promedio anual de 7 por ciento y aportes mensuales. No es garantía ni asesoría de inversión personalizada.",
+        pricingTargetBalanceLabel: "Valor estimado de la cuenta en la edad objetivo",
+        pricingTotalContribLabel: "Total aportado por la familia",
+        pricingGrowthLabel: "Crecimiento por encima de los aportes",
+        pricingMultipleLabel: "Veces que se multiplican los dólares invertidos",
+
+        whyLabel: "Por qué Futuro",
+        whyTitle: "Diseñado para familias, no para expertos en finanzas.",
+        whySubtitle: "Simple por defecto, transparente por diseño y alineado con la nueva infraestructura nacional de inversión para niñas y niños.",
+        whyCard1Title: "Simple por defecto",
+        whyCard1Body: "Un solo activo, un solo saldo, un solo camino. Sin pantallas de trading ni menús confusos, solo el S&P 500.",
+        whyCard2Title: "Amigable para la familia",
+        whyCard2Body: "Pensado para mamás, papás, abuelos, tíos, tías y amigos que quieren dar algo que dure.",
+        whyCard3Title: "Sobre el nuevo sistema",
+        whyCard3Body: "Futuro se conecta al programa federal de Cuentas Trump y a otras vías custodiales en lugar de intentar reemplazarlas.",
+        whyCard4Title: "Motor de regalos",
+        whyCard4Body: "Baby showers, cumpleaños, fiestas, pequeños logros. Cada momento puede ir al mismo fondo que se multiplica.",
+
+        giftLabel: "Regalos",
+        giftTitle: "Mejor que juguetes: envía algo que se multiplica.",
+        giftSubtitle: "Agradecemos que pienses en nuestro bebé. En lugar de juguetes o más cosas físicas, estamos pidiendo a familia y amigos que aporten a una cuenta de inversión a largo plazo que compra un fondo simple del S&P 500 a su nombre.",
+        giftCardTitle: "Un tipo de regalo distinto",
+        giftCardBody1: "Muchos juguetes se usan una temporada y terminan en un clóset. Estamos probando algo más tranquilo y de largo plazo. Cada regalo va a un solo fondo del S&P 500 y se queda invertido por años. Nada sofisticado, sin trading, solo propiedad que se compone mientras nuestro hijo crece.",
+        giftCardBody2: "Un regalo pequeño hoy puede valer mucho más cuando tenga 18 o 30 años. Si quieres ser parte de eso, puedes usar el enlace de aportes que compartimos en la invitación.",
+        giftSliderLabel: "Elige un regalo y mira en qué se podría convertir",
+        giftHint: "Escoge un monto. Primero mira qué pasa si lo envías una sola vez, luego qué pasa si envías esa cantidad cada mes durante el primer año.",
+        gift18Label: "Regalo único al nacer · valor a los 18",
+        gift30Label: "Regalo único al nacer · valor a los 30",
+        giftMonthly18Label: "Mismo monto cada mes por un año · valor a los 18",
+        giftMonthly30Label: "Mismo monto cada mes por un año · valor a los 30",
+        giftNote: "Estos ejemplos suponen que los regalos empiezan al nacer, que los dividendos se reinvierten y que el dinero gana un rendimiento promedio anual de 7 por ciento según la historia del S&P 500. El mercado sube y baja. No es garantía, solo una ilustración del poder del tiempo.",
+
+        ctaTitle: "Sé parte de la primera generación que usa el nuevo programa de inversión para niñas y niños en Estados Unidos.",
+        ctaSubtitle: "Estamos invitando a un grupo pequeño de familias, líderes de comunidad y donantes para ayudar a dar forma a Futuro. Déjanos tu correo y te avisaremos en cuanto el producto esté listo.",
+        ctaBtn: "Únete a la lista",
+
+        footerLeft: "© Futuro. Vista previa de concepto para exploración temprana del producto.",
+        footerTerms: "Términos",
+        footerPrivacy: "Privacidad",
+        footerDisclosures: "Avisos"
+      }
+    };
+
+    function applyTranslations(lang) {
+      const map = translations[lang];
+      if (!map) return;
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (map[key]) {
+          el.innerHTML = map[key];
+        }
+      });
+
+      // Update CTA placeholder
+      const ctaEmail = document.getElementById("ctaEmail");
+      if (ctaEmail) {
+        ctaEmail.placeholder =
+          lang === "en" ? "Enter your email" : "Escribe tu correo";
+      }
+
+      // Recompute dynamic texts to reflect language
+      updateMath();
+      updateGiftFromSelected();
+      updatePricingMath();
+    }
+
     // Utility
     function formatCurrency(n) {
       return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
@@ -1100,7 +1356,12 @@
       const age30Value = document.getElementById("age30Value");
 
       const monthly = parseInt(slider.value, 10);
-      sliderValue.textContent = "$" + monthly + " per month";
+
+      if (currentLang === "en") {
+        sliderValue.textContent = "$" + monthly + " per month";
+      } else {
+        sliderValue.textContent = "$" + monthly + " al mes";
+      }
 
       const v18 = computeFutureValue(monthly, 18);
       const v30 = computeFutureValue(monthly, 30);
@@ -1110,7 +1371,6 @@
     }
 
     // Gift calculators
-
     function computeGiftValue(amount, years) {
       const r = 0.07;
       return amount * Math.pow(1 + r, years);
@@ -1123,7 +1383,6 @@
       const totalMonths = yearsTotal * 12;
       let value = 0;
 
-      // Gifts happen once per month for the first 12 months
       for (let m = 0; m < 12; m++) {
         const monthsToGrow = totalMonths - (m + 1);
         value += amount * Math.pow(1 + monthlyRate, monthsToGrow);
@@ -1138,16 +1397,18 @@
       const monthly18 = document.getElementById("giftMonthlyAge18Value");
       const monthly30 = document.getElementById("giftMonthlyAge30Value");
 
-      label.textContent = "$" + amount + " gift";
+      if (currentLang === "en") {
+        label.textContent = "$" + amount + " gift";
+      } else {
+        label.textContent = "Regalo de $" + amount;
+      }
 
-      // One time at birth
       const v18 = computeGiftValue(amount, 18);
       const v30 = computeGiftValue(amount, 30);
 
       age18.textContent = formatCurrency(v18);
       age30.textContent = formatCurrency(v30);
 
-      // Same amount every month for the first year
       const mv18 = computeMonthlyForYearValue(amount, 18);
       const mv30 = computeMonthlyForYearValue(amount, 30);
 
@@ -1155,8 +1416,14 @@
       monthly30.textContent = formatCurrency(mv30);
     }
 
-    // Pricing tool calculators
+    function updateGiftFromSelected() {
+      const selected = document.querySelector(".gift-toggle-btn.selected");
+      if (!selected) return;
+      const amount = parseInt(selected.getAttribute("data-amount"), 10);
+      updateGiftMath(amount);
+    }
 
+    // Pricing tool calculators
     function computePlanValueNoSeed(monthly, years) {
       const annualRate = 0.07;
       const monthlyRate = Math.pow(1 + annualRate, 1 / 12) - 1;
@@ -1182,7 +1449,6 @@
       let currentAge = parseInt(currentAgeInput.value, 10);
       let targetAge = parseInt(targetAgeInput.value, 10);
 
-      // Ensure target is at least one year older
       if (targetAge <= currentAge) {
         targetAge = currentAge + 1;
         if (targetAge > 30) {
@@ -1194,7 +1460,6 @@
       }
 
       const yearsInvested = targetAge - currentAge;
-
       const monthly = Math.max(0, parseFloat(monthlyInput.value) || 0);
 
       const currentAgeLabel = document.getElementById("pricingCurrentAgeLabel");
@@ -1207,10 +1472,23 @@
       const multipleEl = document.getElementById("pricingMultiple");
       const narrativeEl = document.getElementById("pricingNarrative");
 
-      currentAgeLabel.textContent = "Starting at age " + currentAge;
-      targetAgeLabel.textContent = "Looking at age " + targetAge;
-      yearsLabel.textContent = "Years invested from now: " + yearsInvested;
-      monthlyLabel.textContent = "That is $" + (monthly * 12).toLocaleString("en-US", { maximumFractionDigits: 0 }) + " per year";
+      if (currentLang === "en") {
+        currentAgeLabel.textContent = "Starting at age " + currentAge;
+        targetAgeLabel.textContent = "Looking at age " + targetAge;
+        yearsLabel.textContent = "Years invested from now: " + yearsInvested;
+        monthlyLabel.textContent =
+          "That is $" +
+          (monthly * 12).toLocaleString("en-US", { maximumFractionDigits: 0 }) +
+          " per year";
+      } else {
+        currentAgeLabel.textContent = "Empezando a los " + currentAge + " años";
+        targetAgeLabel.textContent = "Mirando a los " + targetAge + " años";
+        yearsLabel.textContent = "Años invertidos desde hoy: " + yearsInvested;
+        monthlyLabel.textContent =
+          "Equivale a $" +
+          (monthly * 12).toLocaleString("en-US", { maximumFractionDigits: 0 }) +
+          " al año";
+      }
 
       const totalContrib = monthly * 12 * yearsInvested;
       let balance = computePlanValueNoSeed(monthly, yearsInvested);
@@ -1226,14 +1504,25 @@
       growthEl.textContent = formatCurrency(growth);
       multipleEl.textContent = multiple.toFixed(1) + "x";
 
-      narrativeEl.textContent =
-        "If you start at age " +
-        currentAge +
-        " and stay with $" +
-        monthly.toLocaleString("en-US", { maximumFractionDigits: 0 }) +
-        " per month until age " +
-        targetAge +
-        ", this is the rough size of the account that could be waiting for them.";
+      if (currentLang === "en") {
+        narrativeEl.textContent =
+          "If you start at age " +
+          currentAge +
+          " and stay with $" +
+          monthly.toLocaleString("en-US", { maximumFractionDigits: 0 }) +
+          " per month until age " +
+          targetAge +
+          ", this is the rough size of the account that could be waiting for them.";
+      } else {
+        narrativeEl.textContent =
+          "Si empiezas a los " +
+          currentAge +
+          " años y mantienes $" +
+          monthly.toLocaleString("en-US", { maximumFractionDigits: 0 }) +
+          " al mes hasta los " +
+          targetAge +
+          ", este es el tamaño aproximado de la cuenta que podría estar esperándoles.";
+      }
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -1276,6 +1565,31 @@
         includeSeedInput.addEventListener("change", updatePricingMath);
         updatePricingMath();
       }
+
+      // Language toggle
+      const langEnBtn = document.getElementById("langEnBtn");
+      const langEsBtn = document.getElementById("langEsBtn");
+
+      if (langEnBtn && langEsBtn) {
+        langEnBtn.addEventListener("click", function () {
+          currentLang = "en";
+          langEnBtn.classList.add("active");
+          langEsBtn.classList.remove("active");
+          document.documentElement.lang = "en";
+          applyTranslations("en");
+        });
+
+        langEsBtn.addEventListener("click", function () {
+          currentLang = "es";
+          langEsBtn.classList.add("active");
+          langEnBtn.classList.remove("active");
+          document.documentElement.lang = "es";
+          applyTranslations("es");
+        });
+      }
+
+      // Initial translations (English baseline)
+      applyTranslations("en");
     });
   </script>
 </body>
