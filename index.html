@@ -468,6 +468,22 @@
       color: var(--text-muted);
     }
 
+    /* Gifting section with slider */
+
+    .gift-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: flex-start;
+      margin-top: 16px;
+    }
+
+    .gift-math-note {
+      font-size: 12px;
+      color: #6B7280;
+      margin-top: 8px;
+    }
+
     /* CTA band */
 
     .cta-band {
@@ -537,6 +553,10 @@
       .hero-right {
         order: -1;
         margin-bottom: 8px;
+      }
+
+      .gift-layout {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
 
@@ -762,6 +782,71 @@
         </div>
       </section>
 
+      <!-- Gifting: send compounding instead of toys -->
+      <section id="gifting">
+        <div class="section-label">Gifting</div>
+        <h2 class="section-title">No toys please, send compounding instead.</h2>
+        <p class="section-subtitle">
+          We appreciate you thinking of our little one. Instead of toys or more baby items, we are asking friends and family
+          to contribute to a long term investing account that buys a simple S&amp;P 500 fund for our child.
+        </p>
+
+        <div class="gift-layout">
+          <!-- Left: story and instructions -->
+          <article class="info-card">
+            <h3 class="info-title">A different kind of gift</h3>
+            <p class="info-body">
+              Most toys are loved for a season then end up in a closet. We are trying something quieter and longer term.
+              Every gift goes into one S&amp;P 500 fund and stays invested for years. Nothing fancy, no trading,
+              just ownership that compounds in the background while our child grows up.
+            </p>
+            <p class="info-body" style="margin-top:10px;">
+              A small gift today can be worth much more by the time they are 18 or 30. If you would like to be part of that,
+              you can use the contribution link we share in our invite.
+            </p>
+          </article>
+
+          <!-- Right: slider calculator -->
+          <div class="math-wrap">
+            <div class="slider-row">
+              <label class="slider-label" for="giftAmountRange">
+                Choose a one time gift and see what it could grow to
+              </label>
+              <input
+                id="giftAmountRange"
+                type="range"
+                min="0"
+                max="4"
+                step="1"
+                value="2"
+              />
+              <div id="giftAmountLabel" class="slider-value">
+                $20 one time gift
+              </div>
+              <div class="slider-value" style="font-size:12px;color:#6B7280;">
+                Options: $5, $10, $20, $50, $100 (assumes the gift is invested from birth)
+              </div>
+            </div>
+
+            <div class="math-grid">
+              <div class="math-card">
+                <div class="math-label">Estimated value at age 18</div>
+                <div id="giftAge18Value" class="math-value">$0</div>
+              </div>
+              <div class="math-card">
+                <div class="math-label">Estimated value at age 30</div>
+                <div id="giftAge30Value" class="math-value">$0</div>
+              </div>
+            </div>
+
+            <p class="gift-math-note">
+              This example assumes a single gift invested from birth with dividends reinvested and a 7 percent average annual return
+              based on long term S&amp;P 500 history. Markets go up and down. This is not a guarantee, just an illustration of compounding.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <!-- CTA -->
       <section id="cta">
         <div class="cta-band">
@@ -800,7 +885,7 @@
   </div>
 
   <script>
-    // Simple compounding calculator for the slider
+    // Simple compounding calculator for the main slider
     function formatCurrency(n) {
       return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
     }
@@ -817,6 +902,8 @@
 
     function updateMath() {
       const slider = document.getElementById("contributionRange");
+      if (!slider) return;
+
       const sliderValue = document.getElementById("sliderValue");
       const age18Value = document.getElementById("age18Value");
       const age30Value = document.getElementById("age30Value");
@@ -831,8 +918,48 @@
       age30Value.textContent = formatCurrency(v30);
     }
 
-    document.getElementById("contributionRange").addEventListener("input", updateMath);
-    updateMath();
+    // New calculator for one time gifts
+    const giftAmounts = [5, 10, 20, 50, 100];
+
+    function computeGiftValue(amount, years) {
+      const r = 0.07;
+      return amount * Math.pow(1 + r, years);
+    }
+
+    function updateGiftMath() {
+      const slider = document.getElementById("giftAmountRange");
+      if (!slider) return;
+
+      const label = document.getElementById("giftAmountLabel");
+      const age18 = document.getElementById("giftAge18Value");
+      const age30 = document.getElementById("giftAge30Value");
+
+      const index = parseInt(slider.value, 10);
+      const amount = giftAmounts[index];
+
+      label.textContent = "$" + amount + " one time gift";
+
+      const v18 = computeGiftValue(amount, 18);
+      const v30 = computeGiftValue(amount, 30);
+
+      age18.textContent = formatCurrency(v18);
+      age30.textContent = formatCurrency(v30);
+    }
+
+    // Init both sliders
+    document.addEventListener("DOMContentLoaded", function () {
+      const mainSlider = document.getElementById("contributionRange");
+      if (mainSlider) {
+        mainSlider.addEventListener("input", updateMath);
+        updateMath();
+      }
+
+      const giftSlider = document.getElementById("giftAmountRange");
+      if (giftSlider) {
+        giftSlider.addEventListener("input", updateGiftMath);
+        updateGiftMath();
+      }
+    });
   </script>
 </body>
 </html>
